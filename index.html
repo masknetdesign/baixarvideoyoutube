@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baixar Vídeo do YouTube</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Baixar Vídeo do YouTube</h1>
+        <form id="downloadForm">
+            <input type="text" id="videoUrl" placeholder="Insira a URL do vídeo do YouTube">
+            <button type="submit">Baixar</button>
+        </form>
+    </div>
+
+    <script>
+        const downloadForm = document.getElementById('downloadForm');
+
+        downloadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const videoUrl = document.getElementById('videoUrl').value;
+
+            try {
+                const response = await fetch(`/baixar-video?url=${encodeURIComponent(videoUrl)}`);
+                if (!response.ok) {
+                    throw new Error('Erro ao baixar vídeo');
+                }
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'video.mp4';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+            } catch (error) {
+                console.error('Erro ao baixar o vídeo:', error);
+                alert('Erro ao baixar o vídeo. Por favor, verifique a URL e tente novamente.');
+            }
+        });
+    </script>
+</body>
+</html>

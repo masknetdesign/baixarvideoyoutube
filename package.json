@@ -1,0 +1,17 @@
+{
+    "name": "baixar-video-youtube",
+    "version": "1.0.0",
+    "description": "Aplicação para baixar vídeos do YouTube usando Node.js e Express",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "ytdl-core": "^5.9.1"
+    },
+    "devDependencies": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
